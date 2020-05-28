@@ -11,7 +11,7 @@ public class AdhdPlayerMemoryData {
     public void walk(PlayerMoveEvent event) {
         Optional<IAdhdChecker> newState = this.checker.walk(event);
         newState.ifPresent(state -> {
-            event.getPlayer().chat("Your state is " + state.getClass().getSimpleName());
+            //event.getPlayer().chat("Your state is " + state.getClass().getSimpleName());
             this.checker = state;
         });
     }

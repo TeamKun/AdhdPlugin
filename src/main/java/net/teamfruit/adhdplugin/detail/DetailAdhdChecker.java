@@ -46,7 +46,7 @@ public class DetailAdhdChecker implements IAdhdChecker {
         distance += move;
         if (distance > sectionLength) {
             // 詳細チェック終了
-            event.getPlayer().chat("§eYour ADHD Data is Here");
+            //event.getPlayer().chat("§eYour ADHD Data is Here");
             return Optional.of(new DetailAdhdPlayer(path));
         }
 

@@ -1,7 +1,11 @@
 package net.teamfruit.adhdplugin.simple;
 
+import net.teamfruit.adhdplugin.AdhdPlugin;
 import net.teamfruit.adhdplugin.IAdhdChecker;
 import net.teamfruit.adhdplugin.detail.DetailAdhdChecker;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.Arrays;
@@ -39,8 +43,15 @@ public class SimpleAdhdChecker implements IAdhdChecker {
                 entry -> entry.getValue().stream().allMatch(section -> section.lastSection.check())
         ).findFirst();
         if (sectionGroup.isPresent()) {
-            event.getPlayer().chat("§eYou are now ADHD");
-            return Optional.of(new DetailAdhdChecker(sectionGroup.get().getKey()));
+            Player p = event.getPlayer();
+            EntityDamageEvent cause = new EntityDamageEvent(p, EntityDamageEvent.DamageCause.ENTITY_EXPLOSION, p.getHealth());
+            p.setLastDamageCause(cause);
+            Bukkit.getPluginManager().callEvent(cause);
+            p.setHealth(0.0);
+            for (Player player : Bukkit.getOnlinePlayers())
+                player.sendMessage(p.getDisplayName() + "はADHDを発症した");
+            return Optional.of(new SimpleAdhdChecker());
+            //return Optional.of(new DetailAdhdChecker(sectionGroup.get().getKey()));
         }
 
         // 距離に達したら0からカウントし直す
