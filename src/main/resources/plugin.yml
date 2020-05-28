@@ -1,0 +1,8 @@
+name: AdhdPlugin
+version: ${project.version}
+main: net.teamfruit.adhdplugin.AdhdPlugin
+api-version: 1.13
+prefix: ADHD
+authors: [Kamesuta]
+description: score player's ADHD movement
+website: https://www.teamfruit.net/
